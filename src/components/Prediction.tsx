@@ -2,7 +2,7 @@ import React from 'react';
 import { PredictionData } from "../interfaces"
 import GaugeChart from "react-gauge-chart";
 import { round } from 'lodash';
-import { Text } from '@chakra-ui/react';
+import { Badge, Text } from '@chakra-ui/react';
 
 interface PredictionProps {
     predictionData : PredictionData
@@ -22,7 +22,9 @@ const Prediction: React.FC<PredictionProps> = ({predictionData}) => {
         />
          <Text fontSize='2xl'>Confidence: {predictionData.confidence?round(predictionData.confidence*100,2):""}%</Text>
          
-         <Text fontSize='4xl'>Sentiment: {predictionData.predicted_label?"Positive":"Negative"}</Text>
+         <Text fontSize="4xl">Sentiment: {predictionData.predicted_label?
+         (<Badge colorScheme='green' size="sm"><Text fontSize="2xl">Positive</Text></Badge>):
+         (<Badge colorScheme='red'><Text fontSize="2xl">Negative</Text></Badge>)}</Text>
         
         </>
     )
