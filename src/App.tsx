@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { Textarea, Button, Heading, Box } from '@chakra-ui/react'
 import './App.css'
+import axios from 'axios'
 
 function App() {
 
@@ -15,7 +16,17 @@ function App() {
   // }, [text])
 
   const onPredictHandler = async () => {
-    console.log("Text to send: ",text)
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/sentiment",
+      {data:"Hello World"}    
+      )
+
+      console.log(response.data)
+
+    } catch (error) {
+      
+    }
   }
 
   return (
