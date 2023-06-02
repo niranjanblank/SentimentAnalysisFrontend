@@ -3,10 +3,25 @@ import { Textarea, Button, Heading, Box } from '@chakra-ui/react'
 import './App.css'
 import axios from 'axios'
 
+interface PredictionData {
+  data: string | null;
+  prediction_score: number | null;
+  predicted_label: number | null;
+  confidence: number | null;
+}
+
 function App() {
 
+  // state to provide input to the server
   const [text ,setText] = useState("")
 
+  // state to store prediction data from the server
+  const [prediction, setPrediction] = useState<PredictionData>({
+    data: null,
+    prediction_score: null,
+    predicted_label: null,
+    confidence: null
+  })
   const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value)
   }
@@ -19,9 +34,11 @@ function App() {
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/sentiment",
-      {data:"Hello World"}    
+      {data: text}    
       )
 
+      // updating the prediction data
+      setPrediction(response.data)
       console.log(response.data)
 
     } catch (error) {
@@ -45,6 +62,10 @@ function App() {
       <Button colorScheme='blue' marginTop="10px"
       onClick={onPredictHandler}
       >Predict Sentiment</Button>
+      
+      {prediction.data? (
+        <div>{prediction.predicted_label}</div>
+      ): ("")}
     </Box>
   )
 }
