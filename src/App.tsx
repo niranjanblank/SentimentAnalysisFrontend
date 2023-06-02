@@ -1,14 +1,9 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { Textarea, Button, Heading, Box } from '@chakra-ui/react'
 import './App.css'
 import axios from 'axios'
-
-interface PredictionData {
-  data: string | null;
-  prediction_score: number | null;
-  predicted_label: number | null;
-  confidence: number | null;
-}
+import Prediction from './components/Prediction';
+import { PredictionData } from './interfaces';
 
 function App() {
 
@@ -64,7 +59,7 @@ function App() {
       >Predict Sentiment</Button>
       
       {prediction.data? (
-        <div>{prediction.predicted_label}</div>
+        <Prediction predictionData={prediction}/>
       ): ("")}
     </Box>
   )
