@@ -1,14 +1,20 @@
-import { ChangeEvent, useState } from 'react'
-import { Textarea, Button, Heading, Box } from '@chakra-ui/react'
-import './App.css'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { Textarea, Button, Heading, Box, useColorMode } from '@chakra-ui/react'
+
 import axios from 'axios'
 import Prediction from './components/Prediction';
 import { PredictionData } from './interfaces';
 
 function App() {
-
-  // state to provide input to the server
+  const {colorMode, toggleColorMode} = useColorMode()
+   // state to provide input to the server
   const [text ,setText] = useState("")
+
+  // useEffect(() => {
+  //   if (colorMode === "light") {
+  //     toggleColorMode();
+  //   }
+  // }, []);
 
   // state to store prediction data from the server
   const [prediction, setPrediction] = useState<PredictionData>({
@@ -42,26 +48,28 @@ function App() {
   }
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="90vh"
-      flexDirection="column"
-    >
-      <Heading>Welcome to Sentiment Analysis</Heading>
-      <Textarea placeholder='Enter your text here for sentiment analysis' 
-      value={text}
-      onChange={handleTextAreaChange}
-      />
-      <Button colorScheme='blue' marginTop="10px"
-      onClick={onPredictHandler}
-      >Predict Sentiment</Button>
-      
-      {prediction.data? (
-        <Prediction predictionData={prediction}/>
-      ): ("")}
-    </Box>
+
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="90vh"
+        flexDirection="column"
+      >
+        <Heading>Welcome to Sentiment Analysis</Heading>
+        <Textarea placeholder='Enter your text here for sentiment analysis' 
+        value={text}
+        onChange={handleTextAreaChange}
+        />
+        <Button colorScheme='blue' marginTop="10px"
+        onClick={onPredictHandler}
+        >Predict Sentiment</Button>
+        
+        {prediction.data? (
+          <Prediction predictionData={prediction}/>
+        ): ("")}
+      </Box>
+ 
   )
 }
 
