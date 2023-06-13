@@ -1,14 +1,16 @@
-import { ChangeEvent, useEffect, useState } from 'react'
-import { Textarea, Button, Heading, Box, useColorMode } from '@chakra-ui/react'
-
+import { ChangeEvent, useState } from 'react'
+import { Textarea, Center, Button, Heading, Box, Container, Divider, Stack, Icon, AbsoluteCenter } from '@chakra-ui/react'
+import { ChatIcon } from '@chakra-ui/icons'
 import axios from 'axios'
 import Prediction from './components/Prediction';
 import { PredictionData } from './interfaces';
 
 function App() {
-  const {colorMode, toggleColorMode} = useColorMode()
+
    // state to provide input to the server
   const [text ,setText] = useState("")
+
+
 
   // useEffect(() => {
   //   if (colorMode === "light") {
@@ -48,28 +50,34 @@ function App() {
   }
 
   return (
-
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="90vh"
-        flexDirection="column"
-      >
-        <Heading>Welcome to Sentiment Analysis</Heading>
-        <Textarea placeholder='Enter your text here for sentiment analysis' 
-        value={text}
-        onChange={handleTextAreaChange}
-        />
-        <Button colorScheme='blue' marginTop="10px"
-        onClick={onPredictHandler}
-        >Predict Sentiment</Button>
-        
-        {prediction.data? (
-          <Prediction predictionData={prediction}/>
-        ): ("")}
-      </Box>
  
+      <Container
+        centerContent
+        minW={{ base: "100%", lg: "container.lg" }}
+        marginTop={{ base: "60px", lg: "200px" }}
+      
+      >
+        <Stack width="100%" spacing={5}>        
+          <Heading fontSize={{ base: "50px", lg: "80px" }} textAlign={{ base: "center", lg: "left" }}><ChatIcon/>  Sentiment Analysis</Heading>
+     
+          <Textarea placeholder='Enter your text here for sentiment analysis' 
+          variant="filled"
+          value={text}
+          borderRadius={10}
+          size="lg"
+          onChange={handleTextAreaChange}
+          />
+          <Button colorScheme='blue' marginTop="10px"
+          onClick={onPredictHandler}
+          >Predict Sentiment</Button>
+          
+          {prediction.data? (
+            <Prediction predictionData={prediction}/>
+          ): null}
+        </Stack>
+      </Container>
+    
+     
   )
 }
 
