@@ -11,7 +11,7 @@ function App() {
   const [text ,setText] = useState("")
   const {colorMode, toggleColorMode} = useColorMode()
 
-
+  // changing the theme to dark if its light by default
   useEffect(() => {
     if (colorMode === "light") {
       toggleColorMode();
@@ -54,7 +54,7 @@ function App() {
       <Container
         centerContent
         minW={{ base: "100%", lg: "container.lg" }}
-        marginTop={{ base: "60px", lg: "120px" }}
+        marginTop={{ base: "60px", lg: "80px" }}
       
       >
         <Stack width="100%" spacing={5}>        
