@@ -54,7 +54,7 @@ function App() {
       <Container
         centerContent
         minW={{ base: "100%", lg: "container.lg" }}
-        marginTop={{ base: "60px", lg: "200px" }}
+        marginTop={{ base: "60px", lg: "120px" }}
       
       >
         <Stack width="100%" spacing={5}>        
