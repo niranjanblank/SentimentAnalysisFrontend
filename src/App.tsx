@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react'
-import { Textarea, Center, Button, Heading, Box, Container, Divider, Stack, Icon, AbsoluteCenter } from '@chakra-ui/react'
+import { Textarea,  Button, Heading,Container, Stack,} from '@chakra-ui/react'
 import { ChatIcon } from '@chakra-ui/icons'
 import axios from 'axios'
 import Prediction from './components/Prediction';
@@ -34,15 +34,18 @@ function App() {
   // }, [text])
 
   const onPredictHandler = async () => {
+    //  getting the location of server from .env file
+    const api_location = import.meta.env.VITE_SENTIMENT_SERVER
+
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/sentiment",
+        api_location,
       {data: text}    
       )
 
       // updating the prediction data
       setPrediction(response.data)
-      console.log(response.data)
+  
 
     } catch (error) {
       
