@@ -1,5 +1,5 @@
-import { ChangeEvent, useState } from 'react'
-import { Textarea,  Button, Heading,Container, Stack,} from '@chakra-ui/react'
+import { ChangeEvent, useState , useEffect} from 'react'
+import { Textarea,  Button, Heading,Container, Stack, useColorMode,} from '@chakra-ui/react'
 import { ChatIcon } from '@chakra-ui/icons'
 import axios from 'axios'
 import Prediction from './components/Prediction';
@@ -9,14 +9,14 @@ function App() {
 
    // state to provide input to the server
   const [text ,setText] = useState("")
+  const {colorMode, toggleColorMode} = useColorMode()
 
 
-
-  // useEffect(() => {
-  //   if (colorMode === "light") {
-  //     toggleColorMode();
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (colorMode === "light") {
+      toggleColorMode();
+    }
+  }, []);
 
   // state to store prediction data from the server
   const [prediction, setPrediction] = useState<PredictionData>({
@@ -29,9 +29,6 @@ function App() {
     setText(event.target.value)
   }
 
-  // useEffect(()=>{
-  //   console.log("Textarea vakye",text)
-  // }, [text])
 
   const onPredictHandler = async () => {
     //  getting the location of server from .env file
